@@ -1,0 +1,51 @@
+# Professor Profile Configuration
+profile:
+  name: "John Alex Robles"
+  title: "Data Scientist"
+  bio: "Python | Power BI | AI Engineering | AWS | GCP | Azure"
+  avatar: "/static/images/avatar.jpg"  # Optional profile picture
+  university: "University of Makati"
+
+# Social and Professional Links
+links:
+  - name: "Google Scholar"
+    url: "https://scholar.google.com/citations?user=example"
+    icon: "scholar"
+    color: "#4285f4"
+  
+  - name: "GitHub"
+    url: "https://github.com/example"
+    icon: "github"
+    color: "#333"
+  
+  - name: "LinkedIn"
+    url: "https://linkedin.com/in/example"
+    icon: "linkedin"
+    color: "#0077b5"
+  
+  - name: "University Profile"
+    url: "https://university.edu/faculty/example"
+    icon: "university"
+    color: "#800080"
+  
+  - name: "Publications"
+    url: "https://example.com/publications"
+    icon: "book"
+    color: "#ff6b6b"
+  
+  - name: "Email"
+    url: "mailto:jane.smith@university.edu"
+    icon: "email"
+    color: "#ea4335"
+
+# Theme Settings
+theme:
+  background_color: "#f8f9fa"
+  primary_color: "#007bff"
+  text_color: "#333"
+  link_hover_color: "#0056b3"
+
+# Analytics (Optional)
+analytics:
+  enabled: false
+  google_analytics_id: ""  # GA4 Measurement ID

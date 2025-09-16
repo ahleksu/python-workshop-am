@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} - Academic Showcase</title>
+    
+    <!-- Meta tags for social sharing -->
+    <meta name="description" content="{{ profile.bio }}">
+    <meta name="author" content="{{ profile.name }}">
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="{{ profile.name }} - Academic Showcase">
+    <meta property="og:description" content="{{ profile.bio }}">
+    <meta property="og:type" content="profile">
+    
+    <!-- CSS Styles -->
+    <style>
+        :root {
+            --bg-color: {{ theme.background_color }};
+            --primary-color: {{ theme.primary_color }};
+            --text-color: {{ theme.text_color }};
+            --hover-color: {{ theme.link_hover_color }};
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .university {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        
+        .bio {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .links-container {
+            padding: 30px;
+        }
+        
+        .link-item {
+            display: block;
+            text-decoration: none;
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 18px 24px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .link-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .link-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .link-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .link-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .link-arrow {
+            font-size: 18px;
+            color: #ccc;
+            transition: transform 0.3s ease;
+        }
+        
+        .link-item:hover .link-arrow {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .name {
+                font-size: 24px;
+            }
+            
+            .links-container {
+                padding: 20px;
+            }
+            
+            .link-item {
+                padding: 16px 20px;
+            }
+        }
+        
+        /* Icon styles for different link types */
+        .icon-scholar { background: #4285f4; }
+        .icon-github { background: #333; }
+        .icon-linkedin { background: #0077b5; }
+        .icon-university { background: #800080; }
+        .icon-book { background: #ff6b6b; }
+        .icon-email { background: #ea4335; }
+        .icon-default { background: var(--primary-color); }
+    </style>
+    
+    <!-- Analytics -->
+    {% if analytics.enabled and analytics.google_analytics_id %}
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics.google_analytics_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ analytics.google_analytics_id }}');
+    </script>
+    {% endif %}
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="header">
+            <div class="avatar">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar }}" alt="{{ profile.name }}">
+                {% else %}
+                    {{ profile.name[0] }}
+                {% endif %}
+            </div>
+            <div class="name">{{ profile.name }}</div>
+            <div class="title">{{ profile.title }}</div>
+            {% if profile.university %}
+                <div class="university">{{ profile.university }}</div>
+            {% endif %}
+            {% if profile.bio %}
+                <div class="bio">{{ profile.bio }}</div>
+            {% endif %}
+        </div>
+        
+        <!-- Links Section -->
+        <div class="links-container">
+            {% for link in links %}
+                <a href="/link/{{ loop.index0 }}" class="link-item" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <div class="link-info">
+                            <div class="link-icon icon-{{ link.icon if link.icon else 'default' }}" 
+                                 {% if link.color %}style="background: {{ link.color }};"{% endif %}>
+                                {% if link.icon == 'scholar' %}📚
+                                {% elif link.icon == 'github' %}🐙
+                                {% elif link.icon == 'linkedin' %}💼
+                                {% elif link.icon == 'university' %}🏛️
+                                {% elif link.icon == 'book' %}📖
+                                {% elif link.icon == 'email' %}✉️
+                                {% else %}🔗
+                                {% endif %}
+                            </div>
+                            <span class="link-name">{{ link.name }}</span>
+                        </div>
+                        <span class="link-arrow">→</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Built with ❤️ using Flask</p>
+        </div>
+    </div>
+    
+    <!-- JavaScript for link tracking -->
+    <script>
+        // Track link clicks
+        document.querySelectorAll('.link-item').forEach((link, index) => {
+            link.addEventListener('click', function() {
+                {% if analytics.enabled and analytics.google_analytics_id %}
+                gtag('event', 'click', {
+                    'event_category': 'Link',
+                    'event_label': '{{ link.name }}',
+                    'value': index
+                });
+                {% endif %}
+            });
+        });
+    </script>
+</body>
+</html>
